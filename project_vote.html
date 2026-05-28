@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>โหวตโปรเจ็ก | GlobalByte Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Kanit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --surface: #111520;
+    --card: #161b28;
+    --card-hover: #1c2235;
+    --border: #252d3f;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,13,20,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .logo {
+    font-family: 'Kanit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+
+  .logo span {
+    font-size: 0.65rem;
+    font-weight: 400;
+    display: block;
+    -webkit-text-fill-color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .stat-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+
+  .stat-pill strong {
+    color: var(--accent);
+    font-family: 'Kanit', sans-serif;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 32px 40px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Kanit', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    max-width: 540px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* Controls */
+  .controls {
+    position: relative;
+    z-index: 1;
+    padding: 0 32px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px 10px 40px;
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box input::placeholder { color: var(--text-muted); }
+
+  .search-box svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+  }
+
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-tab {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
+
+  .filter-tab.active {
+    background: rgba(0,212,255,0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .sort-select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text-dim);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Grid */
+  .grid-container {
+    position: relative;
+    z-index: 1;
+    padding: 0 32px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,212,255,0.4);
+    box-shadow: 0 12px 40px rgba(0,212,255,0.08);
+    background: var(--card-hover);
+  }
+
+  .card.voted {
+    border-color: rgba(16,185,129,0.4);
+    box-shadow: 0 0 20px rgba(16,185,129,0.08);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 185px;
+    object-fit: cover;
+    background: var(--surface);
+    display: block;
+    position: relative;
+  }
+
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img-wrap img {
+    width: 100%;
+    height: 185px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+  }
+
+  .card:hover .card-img-wrap img {
+    transform: scale(1.05);
+  }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 185px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--surface), var(--card));
+  }
+
+  .category-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(10,13,20,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .rank-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(10,13,20,0.9);
+    border: 2px solid var(--accent3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Kanit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent3);
+  }
+
+  .card-body {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .vote-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 8px;
+    padding: 7px 14px;
+    color: var(--accent);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .vote-btn:hover {
+    background: rgba(0,212,255,0.18);
+    transform: scale(1.03);
+  }
+
+  .vote-btn.voted-btn {
+    background: rgba(16,185,129,0.12);
+    border-color: rgba(16,185,129,0.4);
+    color: var(--green);
+  }
+
+  .vote-count {
+    font-family: 'Kanit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .vote-bar-wrap {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .vote-bar {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .link-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .link-btn:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* Winner highlight */
+  .card.winner {
+    border-color: var(--accent3) !important;
+    box-shadow: 0 0 30px rgba(245,158,11,0.15) !important;
+  }
+
+  .card.winner .rank-badge {
+    background: var(--accent3);
+    color: #000;
+  }
+
+  /* Empty state */
+  .empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px;
+    color: var(--text-muted);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--green);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 999;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Category colors */
+  .cat-ai { color: #818cf8; border-color: #818cf8; }
+  .cat-esp32 { color: #34d399; border-color: #34d399; }
+  .cat-rpi { color: #f472b6; border-color: #f472b6; }
+  .cat-arduino { color: #fb923c; border-color: #fb923c; }
+  .cat-sensor { color: #fbbf24; border-color: #fbbf24; }
+  .cat-iot { color: #22d3ee; border-color: #22d3ee; }
+  .cat-3dprint { color: #a78bfa; border-color: #a78bfa; }
+  .cat-other { color: #94a3b8; border-color: #94a3b8; }
+
+  @media (max-width: 640px) {
+    header { padding: 12px 16px; }
+    .hero { padding: 40px 16px 24px; }
+    .controls { padding: 0 16px 24px; }
+    .grid-container { padding: 0 16px 40px; grid-template-columns: 1fr; }
+    .header-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      ⚡ โปรเจ็กโหวต
+      <span>GlobalByte Projects</span>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill">โปรเจ็กทั้งหมด <strong id="totalCount">0</strong> รายการ</div>
+      <div class="stat-pill">โหวตแล้ว <strong id="votedCount">0</strong> รายการ</div>
+      <div class="stat-pill">โหวตทั้งหมด <strong id="totalVotes">0</strong> ครั้ง</div>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="hero-badge">🗳️ ร่วมโหวตโปรเจ็ก</div>
+    <h1>เลือก<span class="gradient-text">โปรเจ็กที่ใช่</span><br>สำหรับกลุ่มของเรา</h1>
+    <p>รวบรวมโปรเจ็กจาก GlobalByte Shop ทั้งหมด มาให้ทุกคนร่วมโหวต เพื่อตัดสินใจว่าจะทำโปรเจ็กอะไรด้วยกัน!</p>
+  </section>
+  
+  <div class="controls">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="ค้นหาโปรเจ็ก...">
+    </div>
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-cat="all">ทั้งหมด</button>
+      <button class="filter-tab" data-cat="AI">🤖 AI</button>
+      <button class="filter-tab" data-cat="ESP32">📡 ESP32</button>
+      <button class="filter-tab" data-cat="Raspberry Pi">🍓 Raspberry Pi</button>
+      <button class="filter-tab" data-cat="Arduino">🔧 Arduino</button>
+      <button class="filter-tab" data-cat="เซ็นเซอร์">📊 เซ็นเซอร์</button>
+      <button class="filter-tab" data-cat="IoT">🌐 IoT</button>
+      <button class="filter-tab" data-cat="3D Print">🖨️ 3D Print</button>
+    </div>
+    <select class="sort-select" id="sortSelect">
+      <option value="default">เรียงตาม: ค่าเริ่มต้น</option>
+      <option value="votes">โหวตมากสุด</option>
+      <option value="name">ชื่อ ก-ฮ</option>
+    </select>
+  </div>
+  
+  <div class="grid-container" id="projectGrid"></div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+  // จัดการเปลี่ยนเส้นทางรูปภาพในรายการไปที่โฟลเดอร์ img/ ลำดับ 1.jpg ถึง 43.jpg ตามลำดับ ID ของโปรเจ็กต์
+  const PROJECTS = [
+    {
+      id: 1,
+      title: "DIY Macropad 9 คีย์ + OLED RP2350 (ไม่ใช้ PCB)",
+      desc: "สร้างแมคโครแพดด้วยตัวเอง 9 ปุ่ม พร้อมจอ OLED ใช้ชิป RP2350 โดยไม่ต้องมี PCB สำเร็จรูป เหมาะสำหรับสาย Custom Keyboard",
+      category: "ESP32",
+      emoji: "⌨️",
+      img: "img/1.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-macropad-9-keys-oled-rp2350-no-pcb"
+    },
+    {
+      id: 2,
+      title: "กล้องโทรทรรศน์อินฟราเรด Night Vision พิสัยไกล",
+      desc: "DIY กล้องส่องทางไกลพร้อมระบบมองเห็นตอนกลางคืนด้วยเลเซอร์อินฟราเรด ระยะไกล เหมาะสำหรับชมดาวและสัตว์ป่ากลางคืน",
+      category: "เซ็นเซอร์",
+      emoji: "🔭",
+      img: "img/2.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-long-range-night-vision-infrared-laser-telescope"
+    },
+    {
+      id: 3,
+      title: "Claude Desktop Buddy - AI ผู้ช่วยบน ESP32-S3",
+      desc: "ทำ AI Companion บนบอร์ด ESP32-S3 เชื่อมต่อกับ Anthropic Claude API พูดคุยได้เหมือนมี AI ส่วนตัวอยู่บนโต๊ะ",
+      category: "AI",
+      emoji: "🤖",
+      img: "img/3.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/claude-desktop-buddy-ai-companion-esp32-s3-anthropic"
+    },
+    {
+      id: 4,
+      title: "นับคนด้วย AI + Home Assistant (No-Code)",
+      desc: "ระบบนับจำนวนคนเข้า-ออกด้วย AI เชื่อมต่อ Home Assistant ผ่าน REST API โดยไม่ต้องเขียนโค้ด",
+      category: "AI",
+      emoji: "👥",
+      img: "img/4.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/ai-people-counter-home-assistant-no-code-rest-api"
+    },
+    {
+      id: 5,
+      title: "ม่านไฟฟ้า Smart Roller Shades ESP32-S3",
+      desc: "DIY ม่านม้วนอัจฉริยะด้วย ESP32-S3 เชื่อมต่อ Home Assistant ควบคุมผ่านแอป ไม่พึ่ง Cloud ของบริษัทใด",
+      category: "ESP32",
+      emoji: "🪟",
+      img: "img/5.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-smart-roller-shades-esp32-s3-home-assistant-no-cloud"
+    },
+    {
+      id: 6,
+      title: "DIY AI Pin - ESP32-S3 + OpenAI Vision + เสียง",
+      desc: "สร้าง AI Pin ติดเสื้อด้วย ESP32-S3 ใช้ OpenAI API ถ่ายรูปและวิเคราะห์ด้วย Vision พร้อมระบบเสียง",
+      category: "AI",
+      emoji: "📌",
+      img: "img/6.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-ai-pin-esp32-s3-openai-api-vision-voice"
+    },
+    {
+      id: 7,
+      title: "ปุ่มกดโทรแบบ Hands-Free สำหรับผู้ป่วย ALS",
+      desc: "อุปกรณ์ช่วยเหลือผู้ป่วย ALS กดปุ่มโทรโดยไม่ต้องใช้มือ ใช้เซ็นเซอร์ Infrared ตรวจจับการเคลื่อนไหว",
+      category: "เซ็นเซอร์",
+      emoji: "♿",
+      img: "img/7.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-hands-free-call-button-infrared-sensor-als-patient"
+    },
+    {
+      id: 8,
+      title: "Omnibus 4x8 Power Bank + ESP32 + อินเวอร์เตอร์",
+      desc: "แบตเตอรี่แพ็คขนาดใหญ่ 4x8 เซลล์ พร้อม ESP32 สำหรับมอนิเตอร์ และอินเวอร์เตอร์แปลง DC เป็น AC",
+      category: "ESP32",
+      emoji: "🔋",
+      img: "img/8.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-omnibus-4x8-power-bank-esp32-inverter"
+    },
+    {
+      id: 9,
+      title: "Pi Slate - Handheld Cyberdeck จาก Raspberry Pi 5",
+      desc: "คอมพิวเตอร์พกพา Cyberdeck สไตล์ Retro-Futuristic บน Raspberry Pi 5 รัน Linux ได้เต็มระบบ",
+      category: "Raspberry Pi",
+      emoji: "💻",
+      img: "img/9.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/pi-slate-raspberry-pi-5-linux-handheld-cyberdeck"
+    },
+    {
+      id: 10,
+      title: "M5Stack Pixel Pets - AI Agent สัตว์เลี้ยงเสมือน",
+      desc: "สัตว์เลี้ยงเสมือนจริงบน M5Stack ขับเคลื่อนด้วย AI Agent พูดคุยได้ มีอารมณ์ความรู้สึก",
+      category: "AI",
+      emoji: "🐾",
+      img: "img/10.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/m5stack-pixel-pets-ai-agent-project"
+    },
+    {
+      id: 11,
+      title: "CCTV นับผู้เข้าชมด้วย AI Computer Vision",
+      desc: "ระบบกล้องวงจรปิดนับจำนวนคนเข้า-ออกด้วย Computer Vision เขียนโค้ดเอง ใช้งานได้จริง",
+      category: "AI",
+      emoji: "📹",
+      img: "img/11.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/ai-cctv-visitor-counting-computer-vision-coding"
+    },
+    {
+      id: 12,
+      title: "ระบบตรวจสอบคุณภาพอากาศ ESP32",
+      desc: "สถานีตรวจวัดคุณภาพอากาศด้วย ESP32 วัดค่า CO2 ความชื้น อุณหภูมิ ส่งข้อมูลขึ้น Cloud แสดงผลแดชบอร์ด",
+      category: "ESP32",
+      emoji: "🌬️",
+      img: "img/12.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-air-quality-monitoring-system"
+    },
+    {
+      id: 13,
+      title: "DIY เครื่องวัดฝุ่น PM2.5",
+      desc: "สร้างเครื่องวัดฝุ่น PM2.5 ราคาประหยัด แสดงผลแบบ Real-time รู้ทันค่าฝุ่นในบ้านและนอกบ้าน",
+      category: "เซ็นเซอร์",
+      emoji: "🌫️",
+      img: "img/13.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-pm2-5-dust-meter"
+    },
+    {
+      id: 14,
+      title: "นาฬิกาปลุกพูดได้ ESP32-S3 + OLED + TTS",
+      desc: "นาฬิกาปลุกอัจฉริยะบน ESP32-S3 จอ OLED พร้อมระบบ Text-to-Speech อ่านเวลาและข้อความออกเสียงได้",
+      category: "ESP32",
+      emoji: "⏰",
+      img: "img/14.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-s3-speaking-alarm-clock-oled-tts"
+    },
+    {
+      id: 15,
+      title: "เครื่องจ่ายสบู่รูป Moai 3D Print",
+      desc: "พิมพ์ 3D เครื่องจ่ายสบู่รูปหัว Moai สุดน่ารัก ด้วยไฟลาเมนต์ Marble PLA ลวดลายสวยงามเหมือนหินอ่อน",
+      category: "3D Print",
+      emoji: "🗿",
+      img: "img/15.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/diy-moai-soap-dispenser-marble-pla"
+    },
+    {
+      id: 16,
+      title: "มอนิเตอร์ระดับน้ำ ESP32 + Blynk (สงกรานต์)",
+      desc: "ระบบตรวจสอบระดับน้ำด้วย ESP32 แสดงผลผ่าน Blynk App ทำขึ้นพิเศษสำหรับเทศกาลสงกรานต์",
+      category: "IoT",
+      emoji: "💧",
+      img: "img/16.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-water-level-monitor-blynk-songkran"
+    },
+    {
+      id: 17,
+      title: "เครื่องตรวจจับฟ้าแลบ DIY ESP8266",
+      desc: "ตรวจจับฟ้าแลบและพายุฝนด้วย ESP8266 และเซ็นเซอร์เฉพาะทาง แจ้งเตือนผ่าน Wi-Fi ได้ทันที",
+      category: "เซ็นเซอร์",
+      emoji: "⚡",
+      img: "img/17.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp8266-lightning-detector-diy"
+    },
+    {
+      id: 18,
+      title: "ประตูอัจฉริยะจดจำใบหน้า Raspberry Pi",
+      desc: "ระบบประตูอัตโนมัติจดจำใบหน้าด้วย Raspberry Pi เปิด-ปิดประตูอัตโนมัติ พร้อมบันทึกประวัติ",
+      category: "Raspberry Pi",
+      emoji: "🚪",
+      img: "img/18.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-smart-door-guardian-face-recognition"
+    },
+    {
+      id: 19,
+      title: "ปั๊มน้ำอัตโนมัติ Arduino Uno",
+      desc: "ระบบปั๊มน้ำอัตโนมัติด้วย Arduino Uno ตรวจจับความชื้นดิน รดน้ำต้นไม้อัตโนมัติ ประหยัดน้ำ",
+      category: "Arduino",
+      emoji: "🌿",
+      img: "img/19.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-uno-automatic-water-pump-device"
+    },
+    {
+      id: 20,
+      title: "บอลทำนายโชคชะตา Raspberry Pi Pico",
+      desc: "สร้างใหม่บอลทำนายโชคชะตาโบราณด้วย Raspberry Pi Pico เขย่าแล้วแสดงคำทำนาย สนุกและน่าสะสม",
+      category: "Raspberry Pi",
+      emoji: "🔮",
+      img: "img/20.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-pico-old-fortune-ball-rebuild"
+    },
+    {
+      id: 21,
+      title: "จอแสดงความดันยาง TPMS บน Arduino",
+      desc: "รับสัญญาณ TPMS จากรถยนต์แสดงความดันยางทั้ง 4 เส้น บน Arduino จอ LCD แบบ Real-time",
+      category: "Arduino",
+      emoji: "🚗",
+      img: "img/21.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-tpms-tyre-pressure-display"
+    },
+    {
+      id: 22,
+      title: "กับดักยุงอัตโนมัติ Arduino Nano",
+      desc: "สร้างกับดักยุงอัตโนมัติด้วย Arduino Nano ควบคุมการทำงาน แสงดึงดูดยุง จับยุงได้จริง",
+      category: "Arduino",
+      emoji: "🦟",
+      img: "img/22.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-nano-automatic-mosquito-trap"
+    },
+    {
+      id: 23,
+      title: "Q AI Mobility Companion Arduino Uno",
+      desc: "ผู้ช่วย AI สำหรับผู้มีความพิการทางการเคลื่อนไหว ใช้ Arduino Uno ช่วยให้ใช้ชีวิตสะดวกขึ้น",
+      category: "AI",
+      emoji: "🦽",
+      img: "img/23.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-uno-q-ai-mobility-companion"
+    },
+    {
+      id: 24,
+      title: "เครื่องวัด UV แบบ Real-time Arduino",
+      desc: "วัดความเข้มของรังสี UV แบบ Real-time ด้วย Arduino และเซ็นเซอร์ UV บอกได้ว่าต้องทาครีมกันแดดไหม",
+      category: "Arduino",
+      emoji: "☀️",
+      img: "img/24.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-uv-sensor-real-time-uv-meter"
+    },
+    {
+      id: 25,
+      title: "ส่ง SMS ด้วย ESP32",
+      desc: "ระบบส่ง SMS อัตโนมัติด้วย ESP32 ใช้โมดูล GSM/LTE แจ้งเตือนเหตุฉุกเฉิน ส่งข้อมูลเซ็นเซอร์",
+      category: "IoT",
+      emoji: "📱",
+      img: "img/25.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-sms"
+    },
+    {
+      id: 26,
+      title: "GPS Tracker ด้วย Raspberry Pi Pico",
+      desc: "ติดตาม GPS แบบ Real-time ด้วย Raspberry Pi Pico และโมดูล GPS แสดงตำแหน่งบนแผนที่",
+      category: "Raspberry Pi",
+      emoji: "📍",
+      img: "img/26.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-pico-gps-tracker"
+    },
+    {
+      id: 27,
+      title: "GPS Tracker ด้วย ESP32",
+      desc: "ระบบติดตาม GPS ด้วย ESP32 ส่งตำแหน่งผ่าน Wi-Fi หรือ MQTT ติดตามรถ สัตว์เลี้ยง หรือของมีค่า",
+      category: "ESP32",
+      emoji: "🗺️",
+      img: "img/27.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-gps-tracker"
+    },
+    {
+      id: 28,
+      title: "กล้อง AI ตรวจจับคน + ไฟสัญญาณ Stack Light",
+      desc: "Raspberry Pi AI Camera ตรวจจับคนร่วมกับ OpenPLC ควบคุมไฟสัญญาณ Stack Light แจ้งเตือนอัตโนมัติ",
+      category: "AI",
+      emoji: "🚦",
+      img: "img/28.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-ai-camera-openplc-person-detection-stack-light"
+    },
+    {
+      id: 29,
+      title: "หุ่นยนต์แปลภาษามือ",
+      desc: "หุ่นยนต์แปลภาษามือเป็นข้อความ ช่วยเหลือผู้พิการทางการได้ยิน สื่อสารกับคนทั่วไปได้สะดวกขึ้น",
+      category: "AI",
+      emoji: "🤟",
+      img: "img/29.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/sign-language-translation-robot"
+    },
+    {
+      id: 30,
+      title: "ชุดเซ็นเซอร์ความดันอากาศ Sensirion",
+      desc: "ชุดทดลองเซ็นเซอร์ความดันอากาศ Sensirion วัดค่าแม่นยำสูง เหมาะสำหรับสถานีอากาศ IoT",
+      category: "เซ็นเซอร์",
+      emoji: "🌡️",
+      img: "img/30.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/air-pressure-sensor-kit-sensirion"
+    },
+    {
+      id: 31,
+      title: "5 โปรเจ็กสนุกบน Raspberry Pi",
+      desc: "รวม 5 โปรเจ็กสนุกและน่าสนใจที่ทำได้บน Raspberry Pi เหมาะสำหรับมือใหม่ไปจนถึงมืออาชีพ",
+      category: "Raspberry Pi",
+      emoji: "🍓",
+      img: "img/31.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/5-fun-raspberry-pi-projects"
+    },
+    {
+      id: 32,
+      title: "แบนด์วัดสุขภาพ Health Band",
+      desc: "สายรัดข้อมือวัดสุขภาพ DIY วัดอัตราการเต้นของหัวใจ ออกซิเจนในเลือด ก้าวเดิน แสดงผลแบบ Real-time",
+      category: "เซ็นเซอร์",
+      emoji: "💓",
+      img: "img/32.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/health-band"
+    },
+    {
+      id: 33,
+      title: "ระบบ RFID Open Source",
+      desc: "ระบบควบคุมการเข้าออกด้วย RFID แบบ Open Source ติดตั้งง่าย ดัดแปลงได้ตามต้องการ",
+      category: "IoT",
+      emoji: "🔑",
+      img: "img/33.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/rfid-open-source"
+    },
+    {
+      id: 34,
+      title: "Hack ของเล่นควบคุมด้วยคลื่นสมอง Arduino",
+      desc: "แฮ็กของเล่นให้ควบคุมด้วยคลื่นสมอง EEG ใช้ Arduino เชื่อมต่อกับหมวกวัดคลื่นสมองสนุกมาก",
+      category: "Arduino",
+      emoji: "🧠",
+      img: "img/34.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/mind-controlled-toys-hack-indigo"
+    },
+    {
+      id: 35,
+      title: "กล้องรักษาความปลอดภัยอัจฉริยะ Raspberry Pi",
+      desc: "กล้องรักษาความปลอดภัยอัจฉริยะ ตรวจจับการเคลื่อนไหว บันทึกวิดีโอ แจ้งเตือน ด้วย Raspberry Pi",
+      category: "Raspberry Pi",
+      emoji: "📷",
+      img: "img/35.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-smart-security-camera-project"
+    },
+    {
+      id: 36,
+      title: "ESP32-CAM แจ้งเตือนทาง Email",
+      desc: "กล้อง ESP32-CAM ตรวจจับการเคลื่อนไหว ถ่ายรูป ส่ง Email แจ้งเตือนทันที พร้อมรูปภาพ",
+      category: "ESP32",
+      emoji: "📸",
+      img: "img/36.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-cam-email-notification-system"
+    },
+    {
+      id: 37,
+      title: "DIY สมาร์ทโฟนด้วย ESP32",
+      desc: "สร้างสมาร์ทโฟนด้วยตัวเองจาก ESP32 มีจอสัมผัส ระบบโทรศัพท์ แอปพลิเคชัน เป็นของตัวเอง",
+      category: "ESP32",
+      emoji: "📲",
+      img: "img/37.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-smartphone-diy-project"
+    },
+    {
+      id: 38,
+      title: "เครื่องบันทึกเสียงขนาดเล็ก Arduino",
+      desc: "บันทึกเสียงขนาดเล็กด้วย Arduino มีการเล่นกลับ บันทึกลง SD Card เหมาะสำหรับบันทึกบันทึกเสียง",
+      category: "Arduino",
+      emoji: "🎙️",
+      img: "img/38.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-mini-voice-recorder-project"
+    },
+    {
+      id: 39,
+      title: "กล้อง AI ตรวจจับท่าทางและการเคลื่อนไหว",
+      desc: "Raspberry Pi AI Camera ตรวจจับท่าทางร่างกายและการเคลื่อนไหว วิเคราะห์ท่านั่ง การออกกำลังกาย",
+      category: "AI",
+      emoji: "🏃",
+      img: "img/39.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/raspberry-pi-ai-camera-posture-movement-detection"
+    },
+    {
+      id: 40,
+      title: "แดชบอร์ดสภาพแวดล้อม Arduino IoT Cloud",
+      desc: "สร้างแดชบอร์ดแสดงสภาพแวดล้อม อุณหภูมิ ความชื้น CO2 บน Arduino IoT Cloud สวยงามแบบ Real-time",
+      category: "IoT",
+      emoji: "📊",
+      img: "img/40.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-iot-cloud-environmental-dashboard"
+    },
+    {
+      id: 41,
+      title: "SoundSense AR บอกทิศทางเสียง Arduino",
+      desc: "อุปกรณ์ Augmented Reality สำหรับผู้พิการทางการได้ยิน บอกทิศทางของเสียงด้วย AR บน Arduino Uno Q",
+      category: "AI",
+      emoji: "👂",
+      img: "img/41.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/arduino-uno-q-soundsense-directional-audio-caption-ar"
+    },
+    {
+      id: 42,
+      title: "OAQ - เครื่องวัดคุณภาพอากาศ PM2.5 Open Source",
+      desc: "โปรเจ็ก Open Source สร้างเครื่องวัดคุณภาพอากาศ PM2.5 แชร์ข้อมูลกับชุมชน ข้อมูลเปิดสาธารณะ",
+      category: "เซ็นเซอร์",
+      emoji: "🌱",
+      img: "img/42.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/project-oaq-open-source-pm25-air-quality"
+    },
+    {
+      id: 43,
+      title: "ESP32 Pocket AI Voice Assistant (小智)",
+      desc: "ผู้ช่วยเสียง AI ขนาดพกพาบน ESP32 ใช้งานได้แบบ Offline พูดถามตอบได้ รองรับภาษาต่างๆ",
+      category: "AI",
+      emoji: "🎤",
+      img: "img/43.jpg",
+      url: "https://globalbyteshop.com/blogs/projects/esp32-pocket-ai-voice-assistant-xiaozhi"
+    }
+  ];
+  
+  // Fallback images by category (if main image fails)
+  const FALLBACK_IMGS = {
+    "AI": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=220&fit=crop&auto=format",
+    "ESP32": "https://images.unsplash.com/photo-1563770660941-20978e870e26?w=400&h=220&fit=crop&auto=format",
+    "Raspberry Pi": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=220&fit=crop&auto=format",
+    "Arduino": "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=400&h=220&fit=crop&auto=format",
+    "เซ็นเซอร์": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=220&fit=crop&auto=format",
+    "IoT": "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=400&h=220&fit=crop&auto=format",
+    "3D Print": "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&h=220&fit=crop&auto=format",
+    "other": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=220&fit=crop&auto=format"
+  };
+  
+  const CAT_COLORS = {
+    "AI": "cat-ai",
+    "ESP32": "cat-esp32",
+    "Raspberry Pi": "cat-rpi",
+    "Arduino": "cat-arduino",
+    "เซ็นเซอร์": "cat-sensor",
+    "IoT": "cat-iot",
+    "3D Print": "cat-3dprint"
+  };
+  
+  // State
+  let votes = JSON.parse(localStorage.getItem('project_votes') || '{}');
+  let myVotes = JSON.parse(localStorage.getItem('my_votes') || '[]');
+  let activeFilter = 'all';
+  let searchQuery = '';
+  let sortMode = 'default';
+  
+  function saveVotes() {
+    localStorage.setItem('project_votes', JSON.stringify(votes));
+    localStorage.setItem('my_votes', JSON.stringify(myVotes));
+  }
+  
+  function getVoteCount(id) {
+    return votes[id] || 0;
+  }
+  
+  function hasVoted(id) {
+    return myVotes.includes(id);
+  }
+  
+  function totalVoteSum() {
+    return Object.values(votes).reduce((a,b)=>a+b, 0);
+  }
+  
+  function maxVotes() {
+    return Math.max(...PROJECTS.map(p => getVoteCount(p.id)), 1);
+  }
+  
+  function vote(id) {
+    if (hasVoted(id)) {
+      // Unvote
+      votes[id] = Math.max(0, (votes[id]||0) - 1);
+      myVotes = myVotes.filter(v => v !== id);
+      showToast('ยกเลิกการโหวตแล้ว');
+    } else {
+      votes[id] = (votes[id]||0) + 1;
+      myVotes.push(id);
+      showToast('✅ โหวตสำเร็จ!');
+    }
+    saveVotes();
+    render();
+  }
+  
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    t.style.background = msg.includes('ยกเลิก') ? '#ef4444' : 'var(--green)';
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+  
+  function getFiltered() {
+    let list = [...PROJECTS];
+    if (activeFilter !== 'all') list = list.filter(p => p.category === activeFilter);
+    if (searchQuery) list = list.filter(p =>
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.desc.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (sortMode === 'votes') list.sort((a,b) => getVoteCount(b.id) - getVoteCount(a.id));
+    if (sortMode === 'name') list.sort((a,b) => a.title.localeCompare(b.title, 'th'));
+    return list;
+  }
+  
+  function getRank(id) {
+    const sorted = [...PROJECTS].sort((a,b) => getVoteCount(b.id) - getVoteCount(a.id));
+    return sorted.findIndex(p => p.id === id) + 1;
+  }
+  
+  function render() {
+    const list = getFiltered();
+    const grid = document.getElementById('projectGrid');
+    const mx = maxVotes();
+  
+    document.getElementById('totalCount').textContent = PROJECTS.length;
+    document.getElementById('votedCount').textContent = myVotes.length;
+    document.getElementById('totalVotes').textContent = totalVoteSum();
+  
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty-state"><div style="font-size:3rem;margin-bottom:16px">🔍</div><div style="font-size:1.1rem;font-weight:600;margin-bottom:8px">ไม่พบโปรเจ็ก</div><div style="color:var(--text-muted)">ลองเปลี่ยน filter หรือคำค้นหา</div></div>';
+      return;
+    }
+  
+    grid.innerHTML = list.map(p => {
+      const vc = getVoteCount(p.id);
+      const voted = hasVoted(p.id);
+      const rank = getRank(p.id);
+      const isWinner = rank === 1 && vc > 0;
+      const pct = mx > 0 ? (vc/mx)*100 : 0;
+      const catClass = CAT_COLORS[p.category] || 'cat-other';
+      const fallback = FALLBACK_IMGS[p.category] || FALLBACK_IMGS['other'];
+  
+      return `
+      <div class="card ${voted ? 'voted' : ''} ${isWinner ? 'winner' : ''}" id="card-${p.id}">
+        <div class="card-img-wrap">
+          <!-- แสดงรูปจากโฟลเดอร์ img/ และกำหนด onerror ให้ดึงรูป placeholder หากหาไฟล์ไม่เจอ -->
+          <img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallback}';">
+          <div class="category-tag ${catClass}">${p.category}</div>
+          ${rank <= 3 && vc > 0 ? `<div class="rank-badge">#${rank}</div>` : ''}
+        </div>
+        <div class="card-body">
+          <div class="card-title">${p.emoji} ${p.title}</div>
+          <div class="card-desc">${p.desc}</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn ${voted ? 'voted-btn' : ''}" onclick="vote(${p.id})">
+            ${voted ? '✅ โหวตแล้ว' : '🗳️ โหวต'}
+          </button>
+          <div class="vote-bar-wrap">
+            <div class="vote-bar" style="width:${pct}%"></div>
+          </div>
+          <span class="vote-count">${vc}</span>
+          <a class="link-btn" href="${p.url}" target="_blank" title="ดูโปรเจ็ก">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  
+  // Filter tabs
+  document.getElementById('filterTabs').addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeFilter = tab.dataset.cat;
+    render();
+  });
+  
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    render();
+  });
+  
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    sortMode = e.target.value;
+    render();
+  });
+  
+  // Initial render
+  render();
+  </script>
+  </body>
+  </html>
